@@ -52,6 +52,8 @@ TEMPLATES = [
     },
 ]
 
+AUTH_USER_MODEL = 'users.User'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -60,6 +62,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'users.apps.UsersConfig',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
