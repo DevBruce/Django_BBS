@@ -10,7 +10,7 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-    modified_at = models.DateTimeField(auto_now_add=True, auto_now=True)
+    modified_at = models.DateTimeField(auto_now=True)
 
 
 class Comment(models.Model):
