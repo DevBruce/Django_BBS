@@ -19,20 +19,32 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-md-auto">
+            {% if user.is_authenticated %}
+            <li class="nav-item mx-1">
+                <a class="btn btn-outline-success" href="#">Add Post</a>
+            </li>
+			<li class="nav-item">
+				<form action="{% url 'useraccounts:logout' %}" method="POST">
+					{% csrf_token %}
+					<button type='submit' class="btn btn-outline-success">Logout</button>
+				</form>
+			</li>
+            {% else %}
             <li class="nav-item mx-1">
                 <a class="btn btn-outline-success" href="{% url 'useraccounts:signup' %}">SignUp</a>
             </li>
             <li class="nav-item mx-1">
-                <a class="btn btn-outline-success" href="#">Login</a>
+                <a class="btn btn-outline-success" href="{% url 'useraccounts:login' %}">Login</a>
             </li>
+            {% endif %}
         </ul>
     </div>
 </nav>
 
 <div class="container-fluid mt-3">
-{% block content %}
+    {% block content %}
 
-{% endblock %}
+    {% endblock %}
 </div>
 
 </body>
