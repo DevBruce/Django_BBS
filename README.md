@@ -35,3 +35,11 @@ Form of `base.json`
 ```
 
 Input your Django SECRET\_KEY at `<SECRET_KEY>`.  
+
+<br>
+
+### Migrate
+
+```bash
+$ python manage.py migrate
+```
