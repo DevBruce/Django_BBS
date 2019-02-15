@@ -18,3 +18,14 @@ class PostCreateForm(forms.Form):
             }
         )
     )
+
+
+class CommentCreateForm(forms.Form):
+    content = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+            }
+        )
+    )

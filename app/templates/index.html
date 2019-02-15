@@ -63,7 +63,9 @@
         <tr>
             <td>{{ post.pk }}</td>
             <td>
-                <b><a href="{% url 'posts:post-detail' post_pk=post.pk %}">{{ post.title }}</a></b>
+                <a href="{% url 'posts:post-detail' post_pk=post.pk %}"><b>{{ post.title }}</b>
+                    <span class="badge badge-secondary badge-pill">{{ post.comments.all | length }}</span>
+                </a>
             </td>
             <td>{{ post.author }}</td>
             <td>{{ post.created_at }}</td>
@@ -72,7 +74,6 @@
         {% endfor %}
         </tbody>
     </table>
-
     {% endblock %}
 </div>
 

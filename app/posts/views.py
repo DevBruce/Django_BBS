@@ -1,14 +1,26 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
-from .forms import PostCreateForm
-from .models import Post
+from .forms import PostCreateForm, CommentCreateForm
+from .models import Post, Comment
 
 
 def post_detail(request, post_pk):
-    context = {}
     post = Post.objects.get(pk=post_pk)
-    context['post'] = post
+    comments = Comment.objects.filter(post=post).order_by('-created_at')
+    context = {
+        'post': post,
+        'comments': comments,
+    }
+    if request.method == 'POST':
+        form = CommentCreateForm(request.POST)
+        if form.is_valid():
+            Comment.objects.create(
+                post=post,
+                author=request.user,
+                content=form.cleaned_data['content'],
+            )
+    context['form'] = CommentCreateForm()
     return render(request, 'posts/post_detail.html', context)
 
 

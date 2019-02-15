@@ -1,14 +1,37 @@
 {% extends 'index.html' %}
 
 {% block content %}
-<div class="card border-dark mt-3" style="max-width: 96%;">
-    <div class="card-header">{{ post.title }}</div>
-    <div class="card-body text-dark">
-        <p>
+<div class="card border-dark mt-3">
+    <div class="card-header pb-2">
+        <h3 class="float-left">{{ post.title }}</h3>
+        <h5 class="float-right">
             <span class="badge badge-primary">{{ post.author }}</span>
             <span class="badge badge-secondary">{{ post.created_at }}</span>
-        </p>
-        <pre class="card-text">{{ post.content }}</pre>
+        </h5>
+    </div>
+    <div class="card-body text-dark">
+        <pre class="card-text my-3">{{ post.content }}</pre>
     </div>
 </div>
+
+<form method="POST" enctype="multipart/form-data" class="my-3">
+    {% csrf_token %}
+    <div class="input-group">
+        {{ form.content }}
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-outline-dark">Comment</button>
+        </div>
+    </div>
+</form>
+
+{% for comment in comments %}
+<div class="card border-info my-1">
+    <div class="card-body">
+        <span class="badge badge-info">{{ comment.author }}</span>
+        <small>{{ comment.created_at }}</small>
+        <p class="card-text mt-1 mb-0">{{ comment.content }}</p>
+    </div>
+</div>
+{% endfor %}
 {% endblock %}
+
