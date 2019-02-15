@@ -3,6 +3,7 @@ from . import views
 
 app_name = 'posts'
 
-url_patterns = [
-    path('post-detail', views.post_detail, name='post-detail'),
+urlpatterns = [
+    path('<int:post_pk>/', views.post_detail, name='post-detail'),
+    path('create/', views.post_create, name='create'),
 ]

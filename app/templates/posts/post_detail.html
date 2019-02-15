@@ -1,0 +1,14 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="card border-dark mb-3" style="max-width: 96%;">
+    <div class="card-header">{{ post.title }}</div>
+    <div class="card-body text-dark">
+        <p>
+            <span class="badge badge-primary">{{ post.author }}</span>
+            <span class="badge badge-secondary">{{ post.created_at }}</span>
+        </p>
+        <pre class="card-text">{{ post.content }}</pre>
+    </div>
+</div>
+{% endblock %}
