@@ -11,8 +11,6 @@ def signup_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            print(form.cleaned_data['username'])
-            print(form.cleaned_data['password'])
             return redirect('index')
     else:
         form = SignUpForm()

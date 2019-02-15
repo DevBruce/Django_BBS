@@ -62,6 +62,8 @@ class LoginForm(forms.Form):
 
     @property
     def user(self):
+        if self.errors:
+            raise ValueError('Validation Failed')
         return self._user
 
     username = forms.CharField(
