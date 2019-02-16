@@ -7,7 +7,7 @@ from .models import Post, Comment
 
 def post_detail(request, post_pk):
     post = Post.objects.get(pk=post_pk)
-    comments = Comment.objects.filter(post=post).order_by('-created_at')
+    comments = Comment.objects.filter(post=post)
     context = {
         'post': post,
         'comments': comments,
@@ -40,3 +40,13 @@ def post_create(request):
         form = PostCreateForm()
     context['form'] = form
     return render(request, 'posts/post_create.html', context)
+
+
+@login_required
+def post_delete(request, post_pk):
+    if request.method == 'POST':
+        post = Post.objects.get(pk=post_pk)
+        if request.user != post.author:
+            return redirect('index')
+        post.delete()
+        return redirect('index')

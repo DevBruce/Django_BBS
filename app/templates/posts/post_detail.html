@@ -11,9 +11,18 @@
     </div>
     <div class="card-body text-dark">
         <pre class="card-text my-3">{{ post.content }}</pre>
+
+        {% if user.is_authenticated and user == post.author %}
+        <form method="POST" action="{% url 'posts:delete' post_pk=post.pk %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger float-right">Delete</button>
+        </form>
+        {% endif %}
+
     </div>
 </div>
 
+{% if user.is_authenticated %}
 <form method="POST" enctype="multipart/form-data" class="my-3">
     {% csrf_token %}
     <div class="input-group">
@@ -23,6 +32,7 @@
         </div>
     </div>
 </form>
+{% endif %}
 
 {% for comment in comments %}
 <div class="card border-info my-1">
