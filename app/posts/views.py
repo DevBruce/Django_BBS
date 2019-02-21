@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
@@ -35,6 +36,7 @@ def post_create(request):
                 content=form.cleaned_data['content'],
                 author=request.user
             )
+            messages.info(request, 'Post Added')
             return redirect('index')
     else:
         form = PostCreateForm()
@@ -49,4 +51,5 @@ def post_delete(request, post_pk):
         if request.user != post.author:
             return redirect('index')
         post.delete()
+        messages.warning(request, 'Post Deleted')
         return redirect('index')

@@ -24,7 +24,7 @@
                 <a class="btn btn-outline-info" href="{% url 'posts:create' %}">Add Post</a>
             </li>
             <li class="nav-item mx-1">
-                <a class="btn btn-outline-info" href="#">Profile ({{ user.username }})</a>
+                <a class="btn btn-outline-info" href="{% url 'useraccounts:profile' %}">Profile ({{ user.username }})</a>
             </li>
             <li class="nav-item">
                 <form action="{% url 'useraccounts:logout' %}" method="POST">
@@ -44,9 +44,16 @@
     </div>
 </nav>
 
-
 <div class="container-fluid mt-3">
     <h2 align="center">{% block title %}Bulletin Board{% endblock %}</h2>
+
+    {% if messages %}
+        {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} text-center col-4 offset-4">
+            {{ message }}
+    </div>
+        {% endfor %}
+    {% endif %}
 
     {% block content %}
     <table class="table table-bordered table-hover mt-3">
@@ -113,6 +120,8 @@
         </ul>
     </nav>
     {% endblock %}
+
+    <br>
 
 </div>
 </body>

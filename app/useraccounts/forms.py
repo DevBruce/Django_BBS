@@ -91,3 +91,18 @@ class LoginForm(forms.Form):
             self.fields['password'].widget.attrs['class'] += ' is-invalid'
             raise forms.ValidationError('Invalid UserName or Password')
         self._user = user
+
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = [
+            'first_name',
+            'last_name',
+            'email',
+        ]
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+        }
