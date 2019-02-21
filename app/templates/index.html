@@ -24,7 +24,7 @@
                 <a class="btn btn-outline-info" href="{% url 'posts:create' %}">Add Post</a>
             </li>
             <li class="nav-item mx-1">
-                <a class="btn btn-outline-info" href="#">Profile({{ user.username }})</a>
+                <a class="btn btn-outline-info" href="#">Profile ({{ user.username }})</a>
             </li>
             <li class="nav-item">
                 <form action="{% url 'useraccounts:logout' %}" method="POST">
@@ -49,8 +49,6 @@
     <h2 align="center">{% block title %}Bulletin Board{% endblock %}</h2>
 
     {% block content %}
-
-
     <table class="table table-bordered table-hover mt-3">
         <thead>
         <tr>
@@ -83,8 +81,39 @@
         {% endif %}
         </tbody>
     </table>
-    {% endblock %}
-</div>
 
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+
+            <li class="page-item
+        {% if not posts.has_previous %}disabled{% endif %}">
+                <a class="page-link" href="?page=1" tabindex="-1" aria-disabled="true"><<</a>
+            </li>
+            <li class="page-item
+        {% if not posts.has_previous %}disabled{% endif %}">
+                <a class="page-link" href=
+                        "{% if posts.has_previous %}?page={{ posts.previous_page_number }}{% endif %}"
+                   tabindex="-1" aria-disabled="true">Prev</a>
+            </li>
+            {% for page in posts.paginator.page_range %}
+            <li class="page-item {% if page_num == page %}active{% endif %}">
+                <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+            </li>
+            {% endfor %}
+
+            <li class="page-item
+        {% if not posts.has_next %}disabled{% endif %}">
+                <a class="page-link" href=
+                        "{% if posts.has_next %}?page={{ posts.next_page_number }}{% endif %}">Next</a>
+            </li>
+            <li class="page-item
+        {% if not posts.has_next %}disabled{% endif %}">
+                <a class="page-link" href="?page={{ posts.paginator.page_range | length }}" tabindex="-1" aria-disabled="true">>></a>
+            </li>
+        </ul>
+    </nav>
+    {% endblock %}
+
+</div>
 </body>
 </html>
